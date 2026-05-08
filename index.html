@@ -14,7 +14,7 @@
     font-family: 'Cormorant Garamond', Georgia, serif;
     font-weight: 400;
     overflow: hidden;
-    background: #ffffff;
+    background: #f0ede8;
   }
 
   canvas {
@@ -63,7 +63,7 @@
     background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 0.5px solid rgba(255, 255, 255, 0.75);
+    border: none;
     border-radius: 999px;
     display: flex;
     align-items: center;
@@ -133,8 +133,6 @@
 </head>
 <body>
 
-<canvas id="canvas"></canvas>
-
 <section>
   <div class="hero-inner">
     <h1 class="hero-name">mar</h1>
@@ -158,53 +156,5 @@
   </a>
 </nav>
 
-<script>
-  const canvas = document.getElementById('canvas');
-  const ctx = canvas.getContext('2d');
-  let W = canvas.width = window.innerWidth;
-  let H = canvas.height = window.innerHeight;
-
-  // Each blob orbits a fixed home position using sine/cosine
-  // so it never drifts outside the viewport
-  function blobR(base) {
-    return base * Math.max(W, H) / 1000;
-  }
-
-  const blobs = [
-    { hx: 0.15, hy: 0.20, rb: 420, ax: 0.12, ay: 0.09, fx: 0.00078, fy: 0.00058, px: 0.0, py: 1.5, color: [255,100,180] },
-    { hx: 0.80, hy: 0.18, rb: 390, ax: 0.10, ay: 0.13, fx: 0.00068, fy: 0.00048, px: 2.1, py: 0.7, color: [ 80,160,255] },
-    { hx: 0.20, hy: 0.80, rb: 410, ax: 0.11, ay: 0.10, fx: 0.00055, fy: 0.00073, px: 1.0, py: 3.2, color: [170,100,255] },
-    { hx: 0.82, hy: 0.78, rb: 360, ax: 0.09, ay: 0.12, fx: 0.00088, fy: 0.00053, px: 3.5, py: 0.4, color: [255,210, 50] },
-    { hx: 0.50, hy: 0.50, rb: 350, ax: 0.13, ay: 0.08, fx: 0.00063, fy: 0.00083, px: 0.8, py: 2.6, color: [255,140, 60] },
-  ];
-
-  let t = 0;
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    for (const b of blobs) {
-      const r = blobR(b.rb);
-      const x = b.hx * W + Math.sin(t * b.fx + b.px) * b.ax * W;
-      const y = b.hy * H + Math.cos(t * b.fy + b.py) * b.ay * H;
-      const g = ctx.createRadialGradient(x, y, 0, x, y, r);
-      g.addColorStop(0, `rgba(${b.color[0]},${b.color[1]},${b.color[2]},0.27)`);
-      g.addColorStop(1, `rgba(${b.color[0]},${b.color[1]},${b.color[2]},0)`);
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fillStyle = g;
-      ctx.fill();
-    }
-    t++;
-  }
-
-  function loop() { draw(); requestAnimationFrame(loop); }
-
-  window.addEventListener('resize', () => {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  });
-
-  loop();
-</script>
 </body>
 </html>
