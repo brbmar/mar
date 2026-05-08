@@ -19,10 +19,8 @@
 
   canvas {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     z-index: 0;
     pointer-events: none;
   }
@@ -46,17 +44,6 @@
     line-height: 1;
   }
 
-  .hero-subtitle {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-weight: 400;
-    font-size: clamp(0.75rem, 2.6vw, 2rem);
-    color: #000000;
-    letter-spacing: 0.01em;
-    line-height: 1;
-    text-align: center;
-    width: 100%;
-  }
-
   .hero-inner {
     display: flex;
     flex-direction: column;
@@ -64,143 +51,143 @@
     gap: 0.2rem;
   }
 
-  .contact-link {
-    position: fixed;
-    bottom: 50px;
-    left: 50px;
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-weight: 400;
-    font-size: clamp(0.75rem, 2.6vw, 2rem);
-    letter-spacing: 0.05em;
-    color: #000000;
-    text-decoration: none;
-    z-index: 2;
-  }
-
-  .instagram-link {
+  /* ── NAVBAR ── */
+  .navbar {
     position: fixed;
     top: 50px;
-    right: 50px;
-    text-decoration: none;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25vw;
+    height: 50px;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 0.5px solid rgba(255, 255, 255, 0.75);
+    border-radius: 999px;
     display: flex;
     align-items: center;
-    z-index: 2;
+    justify-content: space-between;
+    padding: 0 20px;
   }
 
-  .contact-link:hover {
-    font-weight: 900;
-  }
-
-  .instagram-link svg {
-    width: 25px;
+  .nav-logo {
     height: 25px;
-    fill: #000000;
-  }
-
-  /* blue dot — bottom right */
-  .dot {
-    position: fixed;
-    bottom: 50px;
-    right: 50px;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #0000EE;
-    z-index: 2;
-  }
-
-  /* svg logo — top left, 30px */
-  .logo-mark {
-    position: fixed;
-    top: 50px;
-    left: 50px;
-    z-index: 2;
-    height: 50px;
     display: flex;
     align-items: center;
   }
 
-  .logo-mark svg {
-    height: 50px;
+  .nav-logo svg {
+    height: 25px;
     width: auto;
     fill: #000000;
+    display: block;
+  }
+
+  .nav-hand {
+    font-size: 25px;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    transform-origin: 75% 85%;
+    transition: none;
+  }
+
+  .nav-hand:hover {
+    animation: wave 0.7s ease-in-out;
+  }
+
+  @keyframes wave {
+    0%   { transform: rotate(  0deg); }
+    10%  { transform: rotate(-10deg); }
+    25%  { transform: rotate( 20deg); }
+    40%  { transform: rotate(-10deg); }
+    55%  { transform: rotate( 18deg); }
+    70%  { transform: rotate( -8deg); }
+    85%  { transform: rotate( 12deg); }
+    100% { transform: rotate(  0deg); }
+  }
+
+  .nav-instagram {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .nav-instagram svg {
+    width: 25px;
+    height: 25px;
     display: block;
   }
 </style>
 </head>
 <body>
 
-<canvas id="particles"></canvas>
+<canvas id="canvas"></canvas>
 
 <section>
   <div class="hero-inner">
     <h1 class="hero-name">mar</h1>
-    <p class="hero-subtitle">internet designer</p>
   </div>
 </section>
 
-<div class="logo-mark">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129.42 129.42">
-    <path d="M112.42,89.54c0,.52-.17.77-.52.77-1.98,0-3.57-.04-4.77-.13l-7.22-.13-6.97.13c-1.21.09-2.88.13-5.03.13-.17,0-.26-.26-.26-.77s.08-.77.26-.77c3.27,0,5.42-.58,6.45-1.74,1.03-1.16,1.55-3.55,1.55-7.16v-20.12c0-5.07-.88-8.81-2.64-11.22-1.76-2.41-4.49-3.61-8.19-3.61-2.5,0-5.01.69-7.55,2.06-2.54,1.38-4.84,3.23-6.9,5.55v27.35c0,3.61.52,6,1.55,7.16,1.03,1.16,3.18,1.74,6.45,1.74.17,0,.26.26.26.77s-.09.77-.26.77c-2.15,0-3.83-.04-5.03-.13l-7.1-.13-6.97.13c-1.21.09-2.84.13-4.9.13-.26,0-.39-.26-.39-.77s.13-.77.39-.77c3.18,0,5.29-.58,6.32-1.74,1.03-1.16,1.55-3.55,1.55-7.16v-20.12c0-5.07-.88-8.81-2.64-11.22-1.76-2.41-4.5-3.61-8.19-3.61-2.5,0-4.97.65-7.42,1.94-2.45,1.29-4.71,3.1-6.77,5.42v27.61c0,2.5.19,4.37.58,5.61.39,1.25,1.14,2.11,2.26,2.58,1.12.47,2.79.71,5.03.71.26,0,.39.26.39.77s-.13.77-.39.77c-2.15,0-3.83-.04-5.03-.13l-6.97-.13-6.97.13c-1.21.09-2.84.13-4.9.13-.26,0-.39-.26-.39-.77s.13-.77.39-.77c2.24,0,3.89-.24,4.97-.71,1.07-.47,1.81-1.33,2.19-2.58.39-1.25.58-3.12.58-5.61v-25.28c0-2.84-.34-4.9-1.03-6.19-.69-1.29-1.81-1.94-3.35-1.94-1.29,0-3.57.65-6.84,1.94h-.13c-.34,0-.6-.19-.77-.58-.17-.39-.09-.67.26-.84l15.48-7.48.77-.13c.86,0,1.7.97,2.52,2.9.82,1.94,1.27,4.5,1.35,7.68,5.93-7.22,12.25-10.84,18.96-10.84,3.87,0,7.01.97,9.42,2.9,2.41,1.94,3.91,4.75,4.52,8.45,3.18-3.87,6.36-6.73,9.55-8.58,3.18-1.85,6.49-2.77,9.93-2.77,4.56,0,8.06,1.33,10.51,4,2.45,2.67,3.68,6.62,3.68,11.87v24.9c0,2.5.19,4.37.58,5.61.39,1.25,1.14,2.11,2.26,2.58,1.12.47,2.79.71,5.03.71.34,0,.52.26.52.77Z"/>
-    <path d="M64.71,129.42C29.03,129.42,0,100.39,0,64.71S29.03,0,64.71,0s64.71,29.03,64.71,64.71-29.03,64.71-64.71,64.71ZM64.71,7c-31.82,0-57.71,25.89-57.71,57.71s25.89,57.71,57.71,57.71,57.71-25.89,57.71-57.71S96.53,7,64.71,7Z"/>
-  </svg>
-</div>
-
-<a href="https://youtube.com/@brbmar" target="_blank" rel="noopener" class="dot" aria-label="YouTube @brbmar"></a>
-
-<a href="mailto:hi@mar.art" class="contact-link">contact</a>
-
-<a href="https://instagram.com/mar" target="_blank" rel="noopener" class="instagram-link" aria-label="Instagram @mar">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-  </svg>
-</a>
+<nav class="navbar">
+  <div class="nav-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129.42 129.42">
+      <path d="M112.42,89.54c0,.52-.17.77-.52.77-1.98,0-3.57-.04-4.77-.13l-7.22-.13-6.97.13c-1.21.09-2.88.13-5.03.13-.17,0-.26-.26-.26-.77s.08-.77.26-.77c3.27,0,5.42-.58,6.45-1.74,1.03-1.16,1.55-3.55,1.55-7.16v-20.12c0-5.07-.88-8.81-2.64-11.22-1.76-2.41-4.49-3.61-8.19-3.61-2.5,0-5.01.69-7.55,2.06-2.54,1.38-4.84,3.23-6.9,5.55v27.35c0,3.61.52,6,1.55,7.16,1.03,1.16,3.18,1.74,6.45,1.74.17,0,.26.26.26.77s-.09.77-.26.77c-2.15,0-3.83-.04-5.03-.13l-7.1-.13-6.97.13c-1.21.09-2.84.13-4.9.13-.26,0-.39-.26-.39-.77s.13-.77.39-.77c3.18,0,5.29-.58,6.32-1.74,1.03-1.16,1.55-3.55,1.55-7.16v-20.12c0-5.07-.88-8.81-2.64-11.22-1.76-2.41-4.5-3.61-8.19-3.61-2.5,0-4.97.65-7.42,1.94-2.45,1.29-4.71,3.1-6.77,5.42v27.61c0,2.5.19,4.37.58,5.61.39,1.25,1.14,2.11,2.26,2.58,1.12.47,2.79.71,5.03.71.26,0,.39.26.39.77s-.13.77-.39.77c-2.15,0-3.83-.04-5.03-.13l-6.97-.13-6.97.13c-1.21.09-2.84.13-4.9.13-.26,0-.39-.26-.39-.77s.13-.77.39-.77c2.24,0,3.89-.24,4.97-.71,1.07-.47,1.81-1.33,2.19-2.58.39-1.25.58-3.12.58-5.61v-25.28c0-2.84-.34-4.9-1.03-6.19-.69-1.29-1.81-1.94-3.35-1.94-1.29,0-3.57.65-6.84,1.94h-.13c-.34,0-.6-.19-.77-.58-.17-.39-.09-.67.26-.84l15.48-7.48.77-.13c.86,0,1.7.97,2.52,2.9.82,1.94,1.27,4.5,1.35,7.68,5.93-7.22,12.25-10.84,18.96-10.84,3.87,0,7.01.97,9.42,2.9,2.41,1.94,3.91,4.75,4.52,8.45,3.18-3.87,6.36-6.73,9.55-8.58,3.18-1.85,6.49-2.77,9.93-2.77,4.56,0,8.06,1.33,10.51,4,2.45,2.67,3.68,6.62,3.68,11.87v24.9c0,2.5.19,4.37.58,5.61.39,1.25,1.14,2.11,2.26,2.58,1.12.47,2.79.71,5.03.71.34,0,.52.26.52.77Z"/>
+      <path d="M64.71,129.42C29.03,129.42,0,100.39,0,64.71S29.03,0,64.71,0s64.71,29.03,64.71,64.71-29.03,64.71-64.71,64.71ZM64.71,7c-31.82,0-57.71,25.89-57.71,57.71s25.89,57.71,57.71,57.71,57.71-25.89,57.71-57.71S96.53,7,64.71,7Z"/>
+    </svg>
+  </div>
+  <a href="mailto:hi@mar.art" class="nav-hand" aria-label="Contact">👋</a>
+  <a href="https://instagram.com/mar" target="_blank" rel="noopener" class="nav-instagram" aria-label="Instagram @mar">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5"/>
+      <circle cx="12" cy="12" r="4.8"/>
+      <circle cx="17.4" cy="6.6" r="0.8" fill="#000000" stroke="none"/>
+    </svg>
+  </a>
+</nav>
 
 <script>
-  const canvas = document.getElementById('particles');
+  const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
-
   let W = canvas.width = window.innerWidth;
   let H = canvas.height = window.innerHeight;
 
+  // Each blob orbits a fixed home position using sine/cosine
+  // so it never drifts outside the viewport
   const blobs = [
-    { x: W * 0.05, y: H * 0.10, r: 380, vx: 0.22, vy: 0.09, color: [255, 140, 200] },
-    { x: W * 0.90, y: H * 0.15, r: 340, vx: -0.11, vy: 0.19, color: [120, 180, 255] },
-    { x: W * 0.15, y: H * 0.85, r: 360, vx: 0.17, vy: -0.13, color: [185, 130, 255] },
-    { x: W * 0.85, y: H * 0.80, r: 300, vx: -0.19, vy: -0.08, color: [255, 225, 80] },
-    { x: W * 0.50, y: H * 0.05, r: 280, vx: -0.08, vy: 0.21, color: [100, 225, 195] },
+    { hx: 0.15, hy: 0.20, r: 380, ax: 0.12, ay: 0.09, fx: 0.00031, fy: 0.00023, px: 0.0,  py: 1.5,  color: [255,100,180] },
+    { hx: 0.80, hy: 0.18, r: 340, ax: 0.10, ay: 0.13, fx: 0.00027, fy: 0.00019, px: 2.1,  py: 0.7,  color: [ 80,160,255] },
+    { hx: 0.20, hy: 0.80, r: 360, ax: 0.11, ay: 0.10, fx: 0.00022, fy: 0.00029, px: 1.0,  py: 3.2,  color: [170,100,255] },
+    { hx: 0.82, hy: 0.78, r: 300, ax: 0.09, ay: 0.12, fx: 0.00035, fy: 0.00021, px: 3.5,  py: 0.4,  color: [255,210, 50] },
+    { hx: 0.50, hy: 0.50, r: 280, ax: 0.13, ay: 0.08, fx: 0.00025, fy: 0.00033, px: 0.8,  py: 2.6,  color: [255,140, 60] },
   ];
+
+  let t = 0;
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
-
     for (const b of blobs) {
-      const grad = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-      grad.addColorStop(0, `rgba(${b.color[0]},${b.color[1]},${b.color[2]},0.28)`);
-      grad.addColorStop(1, `rgba(${b.color[0]},${b.color[1]},${b.color[2]},0)`);
+      const x = b.hx * W + Math.sin(t * b.fx + b.px) * b.ax * W;
+      const y = b.hy * H + Math.cos(t * b.fy + b.py) * b.ay * H;
+      const g = ctx.createRadialGradient(x, y, 0, x, y, b.r);
+      g.addColorStop(0, `rgba(${b.color[0]},${b.color[1]},${b.color[2]},0.45)`);
+      g.addColorStop(1, `rgba(${b.color[0]},${b.color[1]},${b.color[2]},0)`);
       ctx.beginPath();
-      ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-      ctx.fillStyle = grad;
+      ctx.arc(x, y, b.r, 0, Math.PI * 2);
+      ctx.fillStyle = g;
       ctx.fill();
     }
+    t++;
   }
 
-  function update() {
-    for (const b of blobs) {
-      b.x += b.vx;
-      b.y += b.vy;
-      if (b.x < -b.r) b.x = W + b.r;
-      if (b.x > W + b.r) b.x = -b.r;
-      if (b.y < -b.r) b.y = H + b.r;
-      if (b.y > H + b.r) b.y = -b.r;
-    }
-  }
-
-  function loop() {
-    update();
-    draw();
-    requestAnimationFrame(loop);
-  }
+  function loop() { draw(); requestAnimationFrame(loop); }
 
   window.addEventListener('resize', () => {
     W = canvas.width = window.innerWidth;
@@ -209,6 +196,5 @@
 
   loop();
 </script>
-
 </body>
 </html>
