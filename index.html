@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mar — music & art</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cormorant+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f0ede8;
+    --bg-card: #e8e4de;
+    --text: #0e0e0e;
+    --text-muted: #6b6560;
+    --border: rgba(14,14,14,0.12);
+    --border-strong: rgba(14,14,14,0.28);
+    --accent: #0e0e0e;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  /* NAVIGATION */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 3rem;
+    background: var(--bg);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  .nav-logo svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .nav-wordmark {
+    font-family: 'Cormorant SC', serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 3rem 6rem 4rem;
+    border-right: 0.5px solid var(--border);
+  }
+
+  .hero-eyebrow {
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+
+  .hero-name {
+    font-size: clamp(4rem, 9vw, 7.5rem);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .hero-bio {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    max-width: 38ch;
+    line-height: 1.75;
+    margin-bottom: 3rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--bg);
+    background: var(--text);
+    padding: 0.75rem 2rem;
+    border: 1px solid var(--text);
+    transition: all 0.2s;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--text);
+  }
+
+  .btn-ghost {
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text);
+    background: transparent;
+    padding: 0.75rem 2rem;
+    border: 1px solid var(--border-strong);
+    transition: all 0.2s;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .btn-ghost:hover {
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
+  }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 6rem 4rem 6rem 3rem;
+    position: relative;
+  }
+
+  .hero-number {
+    position: absolute;
+    top: 6rem;
+    right: 4rem;
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+  }
+
+  .hero-quote {
+    font-size: 1.6rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text);
+    border-left: 1px solid var(--border-strong);
+    padding-left: 1.75rem;
+    margin-bottom: 3rem;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.9rem;
+    border: 0.5px solid var(--border-strong);
+    color: var(--text-muted);
+  }
+
+  /* SECTION COMMON */
+  section {
+    border-top: 0.5px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 3rem 4rem 2rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .section-title {
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .section-count {
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+  }
+
+  /* MUSIC */
+  .music-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .music-item {
+    padding: 2.5rem 3rem;
+    border-right: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+
+  .music-item:nth-child(3n) { border-right: none; }
+  .music-item:hover { background: var(--bg-card); }
+
+  .music-cover {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--bg-card);
+    border: 0.5px solid var(--border);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-family: 'Cormorant SC', serif;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .music-cover-art {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+  }
+
+  .music-play-hint {
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    width: 32px;
+    height: 32px;
+    background: var(--text);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .music-play-hint svg { fill: var(--bg); width: 12px; height: 12px; }
+
+  .music-item:hover .music-play-hint { opacity: 1; }
+
+  .music-year {
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+
+  .music-title {
+    font-size: 1.15rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+  }
+
+  .music-type {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .music-link {
+    display: inline-block;
+    margin-top: 1rem;
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text);
+    border-bottom: 0.5px solid var(--border-strong);
+    padding-bottom: 1px;
+    transition: border-color 0.2s;
+  }
+
+  .music-link:hover { border-color: var(--text); }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .about-text {
+    padding: 4rem;
+    border-right: 0.5px solid var(--border);
+  }
+
+  .about-heading {
+    font-size: 2.8rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.15;
+    margin-bottom: 2rem;
+    max-width: 18ch;
+  }
+
+  .about-body {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.8;
+    max-width: 52ch;
+  }
+
+  .about-body p + p { margin-top: 1.25rem; }
+
+  .about-sidebar {
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .about-stat-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .stat-item {}
+  .stat-number {
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .stat-label {
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .about-social {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.95rem;
+    padding: 0.85rem 1rem;
+    border: 0.5px solid var(--border);
+    transition: all 0.2s;
+  }
+
+  .social-link:hover {
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
+  }
+
+  .social-link:hover svg { fill: var(--bg); }
+
+  .social-link svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--text);
+    flex-shrink: 0;
+    transition: fill 0.2s;
+  }
+
+  .social-handle {
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+  }
+
+  .social-platform {
+    margin-left: auto;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+
+  .social-link:hover .social-platform { color: rgba(240,237,232,0.6); }
+
+  /* CONTACT */
+  .contact-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 4rem;
+    gap: 4rem;
+  }
+
+  .contact-heading {
+    font-size: 3.5rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.1;
+  }
+
+  .contact-sub {
+    margin-top: 1.25rem;
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text-muted);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-label {
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .form-input, .form-textarea {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1rem;
+    background: transparent;
+    border: none;
+    border-bottom: 0.5px solid var(--border-strong);
+    padding: 0.5rem 0;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    resize: none;
+  }
+
+  .form-input:focus, .form-textarea:focus {
+    border-bottom-color: var(--text);
+  }
+
+  .form-input::placeholder, .form-textarea::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-copy {
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+  }
+
+  /* LOGO PLACEHOLDER */
+  .logo-placeholder {
+    width: 36px; height: 36px;
+    border: 1px solid var(--text);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--text);
+  }
+
+  /* ADMIN PANEL */
+  .admin-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 200;
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    opacity: 0.5;
+  }
+
+  .admin-toggle:hover { opacity: 1; }
+
+  .admin-panel {
+    display: none;
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: 420px;
+    background: #f8f5f1;
+    border-left: 0.5px solid var(--border-strong);
+    z-index: 300;
+    overflow-y: auto;
+    box-shadow: -8px 0 32px rgba(0,0,0,0.08);
+  }
+
+  .admin-panel.open { display: block; }
+
+  .admin-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .admin-title {
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .admin-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    padding: 0.2rem;
+    line-height: 1;
+  }
+
+  .admin-section {
+    padding: 1.5rem 2rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .admin-section-title {
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .admin-field {
+    margin-bottom: 1rem;
+  }
+
+  .admin-label {
+    display: block;
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.35rem;
+  }
+
+  .admin-input, .admin-textarea {
+    width: 100%;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 0.95rem;
+    background: white;
+    border: 0.5px solid var(--border-strong);
+    padding: 0.6rem 0.8rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+
+  .admin-input:focus, .admin-textarea:focus {
+    border-color: var(--text);
+  }
+
+  .admin-save {
+    width: 100%;
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    padding: 0.75rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: opacity 0.2s;
+  }
+
+  .admin-save:hover { opacity: 0.8; }
+
+  .admin-saved {
+    text-align: center;
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: #5a8a5a;
+    margin-top: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .admin-saved.show { opacity: 1; }
+
+  .admin-music-item {
+    background: white;
+    border: 0.5px solid var(--border);
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .admin-music-item-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .admin-remove-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--text-muted);
+    padding: 0;
+    line-height: 1;
+  }
+
+  .admin-add-btn {
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 0.5px solid var(--border-strong);
+    color: var(--text);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 0.5rem;
+    transition: all 0.2s;
+  }
+
+  .admin-add-btn:hover { background: var(--text); color: var(--bg); }
+
+  .logo-upload-area {
+    border: 0.5px dashed var(--border-strong);
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    background: white;
+    transition: background 0.2s;
+  }
+
+  .logo-upload-area:hover { background: var(--bg); }
+
+  .logo-upload-hint {
+    font-family: 'Cormorant SC', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+  }
+
+  #logo-file-input { display: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1.25rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 4rem 1.5rem 3rem; border-right: none; border-bottom: 0.5px solid var(--border); }
+    .hero-right { padding: 3rem 1.5rem 4rem; }
+    .hero-number { position: static; margin-bottom: 2rem; }
+    .section-header { padding: 2rem 1.5rem 1.5rem; }
+    .music-grid { grid-template-columns: 1fr 1fr; }
+    .music-item { padding: 1.5rem; }
+    .music-item:nth-child(3n) { border-right: 0.5px solid var(--border); }
+    .music-item:nth-child(2n) { border-right: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-text { padding: 2rem 1.5rem; border-right: none; border-bottom: 0.5px solid var(--border); }
+    .about-sidebar { padding: 2rem 1.5rem; }
+    .contact-row { grid-template-columns: 1fr; padding: 2rem 1.5rem; gap: 2rem; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.75rem; text-align: center; }
+    .admin-panel { width: 100%; }
+  }
+
+  @media (max-width: 500px) {
+    .music-grid { grid-template-columns: 1fr; }
+    .music-item:nth-child(2n) { border-right: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-placeholder" id="logo-display">
+      <span id="logo-text-fallback">M</span>
+    </div>
+    <span class="nav-wordmark" id="nav-wordmark-text">mar</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#music">Music</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-eyebrow" id="hero-eyebrow-text">Artist &amp; Composer</p>
+    <h1 class="hero-name"><em id="hero-name-text">mar</em></h1>
+    <p class="hero-bio" id="hero-bio-text">
+      Music is the space between notes. I create sound that lingers — somewhere between electronic and organic, between silence and everything.
+    </p>
+    <div class="hero-actions">
+      <a href="#music" class="btn-primary">Listen</a>
+      <a href="https://instagram.com/mar" target="_blank" rel="noopener" class="btn-ghost" id="hero-instagram-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        @<span id="instagram-handle">mar</span>
+      </a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <p class="hero-number">mar.art</p>
+    <blockquote class="hero-quote" id="hero-quote-text">
+      "Sound is architecture for the invisible."
+    </blockquote>
+    <div class="hero-tags" id="hero-tags-container">
+      <span class="tag">Electronic</span>
+      <span class="tag">Ambient</span>
+      <span class="tag">Experimental</span>
+      <span class="tag">Composition</span>
+    </div>
+  </div>
+</section>
+
+<!-- MUSIC -->
+<section id="music">
+  <div class="section-header">
+    <span class="section-title">Music</span>
+    <span class="section-count" id="music-count">— 3 releases</span>
+  </div>
+  <div class="music-grid" id="music-grid">
+    <!-- populated by JS -->
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-title">About</span>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <h2 class="about-heading" id="about-heading-text">Making music that breathes.</h2>
+      <div class="about-body">
+        <p id="about-p1-text">I'm mar — a musician, producer, and sound artist. My work exists at the intersection of texture and space, where electronic tools serve organic feelings.</p>
+        <p id="about-p2-text">Every track is a small world. I build them slowly — layer by layer — until the silence inside them has weight. Based between Liechtenstein and everywhere else.</p>
+      </div>
+    </div>
+    <div class="about-sidebar">
+      <div class="about-stat-block" id="stats-block">
+        <div class="stat-item">
+          <div class="stat-number" id="stat1-num">∞</div>
+          <div class="stat-label" id="stat1-label">Hours of sound</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="stat2-num">3</div>
+          <div class="stat-label" id="stat2-label">Releases</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="stat3-num">1</div>
+          <div class="stat-label" id="stat3-label">Domain</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="stat4-num">∞</div>
+          <div class="stat-label" id="stat4-label">Ideas</div>
+        </div>
+      </div>
+      <div class="about-social">
+        <a href="https://instagram.com/mar" target="_blank" rel="noopener" class="social-link" id="about-instagram-link">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <span class="social-handle">@<span id="about-ig-handle">mar</span></span>
+          <span class="social-platform">Instagram</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-title">Contact</span>
+  </div>
+  <div class="contact-row">
+    <div>
+      <h2 class="contact-heading" id="contact-heading-text">Let's make something together.</h2>
+      <p class="contact-sub" id="contact-sub-text">For collabs, bookings, licensing or just to say hello.</p>
+    </div>
+    <form class="contact-form" onsubmit="handleContactSubmit(event)">
+      <div class="form-group">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-input" placeholder="Your name" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" placeholder="your@email.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" rows="4" placeholder="What's on your mind?" required></textarea>
+      </div>
+      <button type="submit" class="btn-primary" style="align-self: flex-start;">Send message</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-copy">© 2025 mar — mar.art</span>
+  <span class="footer-copy" style="font-style:italic; opacity:0.5;">All rights reserved</span>
+</footer>
+
+<!-- ADMIN TOGGLE -->
+<button class="admin-toggle" onclick="toggleAdmin()">⚙ Admin</button>
+
+<!-- ADMIN PANEL -->
+<div class="admin-panel" id="admin-panel">
+  <div class="admin-header">
+    <span class="admin-title">Site Editor</span>
+    <button class="admin-close" onclick="toggleAdmin()">✕</button>
+  </div>
+
+  <!-- LOGO -->
+  <div class="admin-section">
+    <div class="admin-section-title">Logo</div>
+    <div class="logo-upload-area" onclick="document.getElementById('logo-file-input').click()">
+      <p class="logo-upload-hint">Click to upload your SVG logo</p>
+      <p class="logo-upload-hint" style="margin-top:0.3rem; opacity:0.6;">SVG files only</p>
+    </div>
+    <input type="file" id="logo-file-input" accept=".svg,image/svg+xml" onchange="handleLogoUpload(event)">
+    <div class="admin-field" style="margin-top:0.75rem">
+      <label class="admin-label">Name / Wordmark</label>
+      <input class="admin-input" id="a-wordmark" value="mar" oninput="liveUpdate('nav-wordmark-text', this.value)">
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="admin-section">
+    <div class="admin-section-title">Hero</div>
+    <div class="admin-field">
+      <label class="admin-label">Eyebrow text</label>
+      <input class="admin-input" id="a-eyebrow" value="Artist &amp; Composer" oninput="liveUpdate('hero-eyebrow-text', this.value)">
+    </div>
+    <div class="admin-field">
+      <label class="admin-label">Name / Title</label>
+      <input class="admin-input" id="a-name" value="mar" oninput="liveUpdate('hero-name-text', this.value)">
+    </div>
+    <div class="admin-field">
+      <label class="admin-label">Short bio</label>
+      <textarea class="admin-textarea" id="a-bio" rows="3" oninput="liveUpdate('hero-bio-text', this.value)">Music is the space between notes. I create sound that lingers — somewhere between electronic and organic, between silence and everything.</textarea>
+    </div>
+    <div class="admin-field">
+      <label class="admin-label">Pull quote</label>
+      <textarea class="admin-textarea" id="a-quote" rows="2" oninput="liveUpdate('hero-quote-text', this.value)">"Sound is architecture for the invisible."</textarea>
+    </div>
+    <div class="admin-field">
+      <label class="admin-label">Tags (comma-separated)</label>
+      <input class="admin-input" id="a-tags" value="Electronic, Ambient, Experimental, Composition" oninput="updateTags(this.value)">
+    </div>
+    <div class="admin-field">
+      <label class="admin-label">Instagram handle (without @)</label>
+      <input class="admin-input" id="a-instagram" value="mar" oninput="updateInstagram(this.value)">
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="admin-section">
+    <div class="admin-section-title">About</div>
+    <div class="admin-field">
+      <label class="admin-label">Heading</label>
+      <input class="admin-input" id="a-about-heading" value="Making music that breathes." oninput="liveUpdate('about-heading-text', this.value)">
+    </div>
+    <div class="admin-field">
+      <label class="admin-label">Paragraph 1</label>
+      <textarea class="admin-textarea" id="a-about-p1" rows="3" oninput="liveUpdate('about-p1-text', this.value)">I'm mar — a musician, producer, and sound artist. My work exists at the intersection of texture and space, where electronic tools serve organic feelings.</textarea>
+    </div>
+    <div class="admin-field">
+      <label class="admin-label">Paragraph 2</label>
+      <textarea class="admin-textarea" id="a-about-p2" rows="3" oninput="liveUpdate('about-p2-text', this.value)">Every track is a small world. I build them slowly — layer by layer — until the silence inside them has weight. Based between Liechtenstein and everywhere else.</textarea>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="admin-section">
+    <div class="admin-section-title">Contact Section</div>
+    <div class="admin-field">
+      <label class="admin-label">Heading</label>
+      <input class="admin-input" id="a-contact-heading" value="Let's make something together." oninput="liveUpdate('contact-heading-text', this.value)">
+    </div>
+    <div class="admin-field">
+      <label class="admin-label">Subtext</label>
+      <input class="admin-input" id="a-contact-sub" value="For collabs, bookings, licensing or just to say hello." oninput="liveUpdate('contact-sub-text', this.value)">
+    </div>
+  </div>
+
+  <!-- MUSIC -->
+  <div class="admin-section">
+    <div class="admin-section-title">Music Releases</div>
+    <div id="admin-music-list"></div>
+    <button class="admin-add-btn" onclick="addMusicItem()">+ Add release</button>
+  </div>
+
+  <div style="padding: 1.5rem 2rem;">
+    <button class="admin-save" onclick="saveAll()">Save all changes</button>
+    <div class="admin-saved" id="save-indicator">Saved ✓</div>
+  </div>
+</div>
+
+<script>
+  // DEFAULT DATA
+  const defaultMusic = [
+    { title: "Absence Studies", year: "2024", type: "EP", link: "#", placeholder: "EP" },
+    { title: "Drift", year: "2023", type: "Single", link: "#", placeholder: "Single" },
+    { title: "Interior Geometries", year: "2022", type: "Album", link: "#", placeholder: "Album" },
+  ];
+
+  let musicData = JSON.parse(localStorage.getItem('mar_music') || 'null') || defaultMusic;
+
+  function liveUpdate(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  }
+
+  function updateInstagram(handle) {
+    document.getElementById('instagram-handle').textContent = handle;
+    document.getElementById('about-ig-handle').textContent = handle;
+    const url = 'https://instagram.com/' + handle;
+    document.getElementById('hero-instagram-link').href = url;
+    document.getElementById('about-instagram-link').href = url;
+  }
+
+  function updateTags(val) {
+    const container = document.getElementById('hero-tags-container');
+    const tags = val.split(',').map(t => t.trim()).filter(Boolean);
+    container.innerHTML = tags.map(t => `<span class="tag">${t}</span>`).join('');
+  }
+
+  function renderMusicGrid() {
+    const grid = document.getElementById('music-grid');
+    grid.innerHTML = musicData.map((item, i) => `
+      <div class="music-item">
+        <div class="music-cover">
+          ${item.coverDataUrl ? `<img src="${item.coverDataUrl}" class="music-cover-art" style="display:block">` : `<span>${item.placeholder || item.type}</span>`}
+          <div class="music-play-hint">
+            <svg viewBox="0 0 12 12"><polygon points="2,1 11,6 2,11"/></svg>
+          </div>
+        </div>
+        <span class="music-year">${item.year}</span>
+        <div class="music-title">${item.title}</div>
+        <div class="music-type">${item.type}</div>
+        ${item.link && item.link !== '#' ? `<a href="${item.link}" target="_blank" class="music-link">Listen →</a>` : ''}
+      </div>
+    `).join('');
+    document.getElementById('music-count').textContent = `— ${musicData.length} release${musicData.length !== 1 ? 's' : ''}`;
+  }
+
+  function renderAdminMusicList() {
+    const container = document.getElementById('admin-music-list');
+    container.innerHTML = musicData.map((item, i) => `
+      <div class="admin-music-item" id="music-admin-${i}">
+        <div class="admin-music-item-title">
+          Release ${i + 1}
+          <button class="admin-remove-btn" onclick="removeMusicItem(${i})">✕</button>
+        </div>
+        <div class="admin-field">
+          <label class="admin-label">Title</label>
+          <input class="admin-input" value="${item.title}" oninput="musicData[${i}].title=this.value; renderMusicGrid()">
+        </div>
+        <div class="admin-field">
+          <label class="admin-label">Year</label>
+          <input class="admin-input" value="${item.year}" oninput="musicData[${i}].year=this.value; renderMusicGrid()">
+        </div>
+        <div class="admin-field">
+          <label class="admin-label">Type (Album / EP / Single)</label>
+          <input class="admin-input" value="${item.type}" oninput="musicData[${i}].type=this.value; renderMusicGrid()">
+        </div>
+        <div class="admin-field">
+          <label class="admin-label">Link (Spotify / SoundCloud / etc.)</label>
+          <input class="admin-input" placeholder="https://..." value="${item.link === '#' ? '' : item.link}" oninput="musicData[${i}].link=this.value||'#'; renderMusicGrid()">
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function addMusicItem() {
+    musicData.push({ title: "New Release", year: new Date().getFullYear().toString(), type: "Single", link: "#", placeholder: "Single" });
+    renderMusicGrid();
+    renderAdminMusicList();
+  }
+
+  function removeMusicItem(i) {
+    musicData.splice(i, 1);
+    renderMusicGrid();
+    renderAdminMusicList();
+  }
+
+  function handleLogoUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const svgContent = e.target.result;
+      const logoDisplay = document.getElementById('logo-display');
+      logoDisplay.innerHTML = svgContent;
+      const svg = logoDisplay.querySelector('svg');
+      if (svg) {
+        svg.style.width = '36px';
+        svg.style.height = '36px';
+      }
+      localStorage.setItem('mar_logo_svg', svgContent);
+    };
+    reader.readAsText(file);
+  }
+
+  function toggleAdmin() {
+    document.getElementById('admin-panel').classList.toggle('open');
+  }
+
+  function saveAll() {
+    const data = {
+      wordmark: document.getElementById('a-wordmark').value,
+      eyebrow: document.getElementById('a-eyebrow').value,
+      heroName: document.getElementById('a-name').value,
+      bio: document.getElementById('a-bio').value,
+      quote: document.getElementById('a-quote').value,
+      tags: document.getElementById('a-tags').value,
+      instagram: document.getElementById('a-instagram').value,
+      aboutHeading: document.getElementById('a-about-heading').value,
+      aboutP1: document.getElementById('a-about-p1').value,
+      aboutP2: document.getElementById('a-about-p2').value,
+      contactHeading: document.getElementById('a-contact-heading').value,
+      contactSub: document.getElementById('a-contact-sub').value,
+    };
+    localStorage.setItem('mar_site', JSON.stringify(data));
+    localStorage.setItem('mar_music', JSON.stringify(musicData));
+    const ind = document.getElementById('save-indicator');
+    ind.classList.add('show');
+    setTimeout(() => ind.classList.remove('show'), 2500);
+  }
+
+  function loadSaved() {
+    const raw = localStorage.getItem('mar_site');
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    if (data.wordmark) { document.getElementById('a-wordmark').value = data.wordmark; liveUpdate('nav-wordmark-text', data.wordmark); }
+    if (data.eyebrow) { document.getElementById('a-eyebrow').value = data.eyebrow; liveUpdate('hero-eyebrow-text', data.eyebrow); }
+    if (data.heroName) { document.getElementById('a-name').value = data.heroName; liveUpdate('hero-name-text', data.heroName); }
+    if (data.bio) { document.getElementById('a-bio').value = data.bio; liveUpdate('hero-bio-text', data.bio); }
+    if (data.quote) { document.getElementById('a-quote').value = data.quote; liveUpdate('hero-quote-text', data.quote); }
+    if (data.tags) { document.getElementById('a-tags').value = data.tags; updateTags(data.tags); }
+    if (data.instagram) { document.getElementById('a-instagram').value = data.instagram; updateInstagram(data.instagram); }
+    if (data.aboutHeading) { document.getElementById('a-about-heading').value = data.aboutHeading; liveUpdate('about-heading-text', data.aboutHeading); }
+    if (data.aboutP1) { document.getElementById('a-about-p1').value = data.aboutP1; liveUpdate('about-p1-text', data.aboutP1); }
+    if (data.aboutP2) { document.getElementById('a-about-p2').value = data.aboutP2; liveUpdate('about-p2-text', data.aboutP2); }
+    if (data.contactHeading) { document.getElementById('a-contact-heading').value = data.contactHeading; liveUpdate('contact-heading-text', data.contactHeading); }
+    if (data.contactSub) { document.getElementById('a-contact-sub').value = data.contactSub; liveUpdate('contact-sub-text', data.contactSub); }
+
+    const logo = localStorage.getItem('mar_logo_svg');
+    if (logo) {
+      const logoDisplay = document.getElementById('logo-display');
+      logoDisplay.innerHTML = logo;
+      const svg = logoDisplay.querySelector('svg');
+      if (svg) { svg.style.width = '36px'; svg.style.height = '36px'; }
+    }
+  }
+
+  function handleContactSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.textContent = 'Sent ✓';
+    btn.style.opacity = '0.5';
+    btn.disabled = true;
+    e.target.reset();
+    setTimeout(() => { btn.textContent = 'Send message'; btn.style.opacity = ''; btn.disabled = false; }, 3000);
+  }
+
+  // INIT
+  renderMusicGrid();
+  renderAdminMusicList();
+  loadSaved();
+</script>
+</body>
+</html>
