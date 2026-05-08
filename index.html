@@ -166,12 +166,16 @@
 
   // Each blob orbits a fixed home position using sine/cosine
   // so it never drifts outside the viewport
+  function blobR(base) {
+    return base * Math.max(W, H) / 1000;
+  }
+
   const blobs = [
-    { hx: 0.15, hy: 0.20, r: 380, ax: 0.12, ay: 0.09, fx: 0.00078, fy: 0.00058, px: 0.0,  py: 1.5,  color: [255,100,180] },
-    { hx: 0.80, hy: 0.18, r: 340, ax: 0.10, ay: 0.13, fx: 0.00068, fy: 0.00048, px: 2.1,  py: 0.7,  color: [ 80,160,255] },
-    { hx: 0.20, hy: 0.80, r: 360, ax: 0.11, ay: 0.10, fx: 0.00055, fy: 0.00073, px: 1.0,  py: 3.2,  color: [170,100,255] },
-    { hx: 0.82, hy: 0.78, r: 300, ax: 0.09, ay: 0.12, fx: 0.00088, fy: 0.00053, px: 3.5,  py: 0.4,  color: [255,210, 50] },
-    { hx: 0.50, hy: 0.50, r: 280, ax: 0.13, ay: 0.08, fx: 0.00063, fy: 0.00083, px: 0.8,  py: 2.6,  color: [255,140, 60] },
+    { hx: 0.15, hy: 0.20, rb: 600, ax: 0.12, ay: 0.09, fx: 0.00078, fy: 0.00058, px: 0.0, py: 1.5, color: [255,100,180] },
+    { hx: 0.80, hy: 0.18, rb: 560, ax: 0.10, ay: 0.13, fx: 0.00068, fy: 0.00048, px: 2.1, py: 0.7, color: [ 80,160,255] },
+    { hx: 0.20, hy: 0.80, rb: 580, ax: 0.11, ay: 0.10, fx: 0.00055, fy: 0.00073, px: 1.0, py: 3.2, color: [170,100,255] },
+    { hx: 0.82, hy: 0.78, rb: 520, ax: 0.09, ay: 0.12, fx: 0.00088, fy: 0.00053, px: 3.5, py: 0.4, color: [255,210, 50] },
+    { hx: 0.50, hy: 0.50, rb: 500, ax: 0.13, ay: 0.08, fx: 0.00063, fy: 0.00083, px: 0.8, py: 2.6, color: [255,140, 60] },
   ];
 
   let t = 0;
@@ -179,13 +183,14 @@
   function draw() {
     ctx.clearRect(0, 0, W, H);
     for (const b of blobs) {
+      const r = blobR(b.rb);
       const x = b.hx * W + Math.sin(t * b.fx + b.px) * b.ax * W;
       const y = b.hy * H + Math.cos(t * b.fy + b.py) * b.ay * H;
-      const g = ctx.createRadialGradient(x, y, 0, x, y, b.r);
-      g.addColorStop(0, `rgba(${b.color[0]},${b.color[1]},${b.color[2]},0.70)`);
+      const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, `rgba(${b.color[0]},${b.color[1]},${b.color[2]},0.25)`);
       g.addColorStop(1, `rgba(${b.color[0]},${b.color[1]},${b.color[2]},0)`);
       ctx.beginPath();
-      ctx.arc(x, y, b.r, 0, Math.PI * 2);
+      ctx.arc(x, y, r, 0, Math.PI * 2);
       ctx.fillStyle = g;
       ctx.fill();
     }
