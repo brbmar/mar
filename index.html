@@ -247,6 +247,45 @@
     text-align: center; margin-top: 4px;
   }
 
+  .incognito-popup {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,30,0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 24px 32px;
+    font-family: 'VT323', monospace;
+    font-size: 22px;
+    color: #fff;
+    z-index: 99999;
+    text-align: center;
+    display: none;
+  }
+  .incognito-popup button {
+    margin-top: 14px;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    background: #0000ff;
+    color: #fff;
+    border: none;
+    padding: 4px 18px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+  }
+  .incognito-popup button:hover { background: #ff0080; }
+
+  .y2k-dropdown-item {
+    padding: 6px 16px;
+    font-family: 'VT323', monospace;
+    font-size: 15px;
+    color: #fff;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .y2k-dropdown-item:hover { background: #0000ff; }
+
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
   .blink { animation: blink 1s step-start infinite; }
 
@@ -476,10 +515,14 @@
       <div class="y2k-btn" onclick="closeWindow()">✕</div>
     </div>
   </div>
-  <div class="y2k-menubar" id="winMenubar">
-    <div class="y2k-menu">file</div>
-    <div class="y2k-menu">edit</div>
-    <div class="y2k-menu">view</div>
+  <div class="y2k-menubar" id="winMenubar" style="position:relative;">
+    <div class="y2k-menu" id="fileMenu" onclick="toggleFileMenu()" style="position:relative;">file
+      <div id="fileDropdown" style="display:none; position:absolute; top:100%; left:0; background:rgba(0,0,30,0.92); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.2); z-index:9999; min-width:130px;">
+        <div class="y2k-dropdown-item" onclick="location.reload()">reset</div>
+        <div class="y2k-dropdown-item" onclick="showIncognitoPopup()">incognito</div>
+        <div class="y2k-dropdown-item" onclick="closeWindow()">c ya</div>
+      </div>
+    </div>
     <div class="y2k-menu" onclick="alert('i can\'t help u 🫣')">help</div>
   </div>
   <div class="y2k-body" id="winBody">
@@ -505,28 +548,19 @@
       <div class="y2k-icon" onclick="alert('nothing to see here')">
         <div class="y2k-icon-img">
           <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <!-- ears -->
             <polygon points="15,48 22,20 38,46" fill="#111"/>
             <polygon points="85,48 78,20 62,46" fill="#111"/>
-            <!-- inner ears -->
             <polygon points="20,44 25,26 35,44" fill="#333"/>
             <polygon points="80,44 75,26 65,44" fill="#333"/>
-            <!-- head -->
             <ellipse cx="50" cy="62" rx="38" ry="34" fill="#111"/>
-            <!-- eyes -->
             <ellipse cx="34" cy="58" rx="9" ry="11" fill="#ffff00"/>
             <ellipse cx="66" cy="58" rx="9" ry="11" fill="#ffff00"/>
-            <!-- pupils -->
             <ellipse cx="34" cy="58" rx="4" ry="10" fill="#000"/>
             <ellipse cx="66" cy="58" rx="4" ry="10" fill="#000"/>
-            <!-- eye shine -->
             <circle cx="31" cy="54" r="2" fill="rgba(255,255,255,0.5)"/>
             <circle cx="63" cy="54" r="2" fill="rgba(255,255,255,0.5)"/>
-            <!-- nose -->
             <polygon points="50,72 47,76 53,76" fill="#555"/>
-            <!-- mouth -->
             <path d="M44,76 Q50,82 56,76" fill="none" stroke="#555" stroke-width="1.5"/>
-            <!-- whiskers -->
             <line x1="8" y1="70" x2="40" y2="72" stroke="#444" stroke-width="1"/>
             <line x1="8" y1="76" x2="40" y2="75" stroke="#444" stroke-width="1"/>
             <line x1="60" y1="72" x2="92" y2="70" stroke="#444" stroke-width="1"/>
@@ -534,6 +568,10 @@
           </svg>
         </div>
         <div class="y2k-icon-label">pspsps</div>
+      </div>
+      <div class="y2k-icon" onclick="window.location.href='imessage://mar@mar.art'">
+        <div class="y2k-icon-img">💬</div>
+        <div class="y2k-icon-label">hmu</div>
       </div>
       <div class="y2k-icon y2k-icon-artist" onclick="window.open('https://youtube.com/@brbmar','_blank')">
         <div class="y2k-icon-img"><svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#0000ff"/></svg></div>
@@ -543,10 +581,7 @@
         <div class="y2k-icon-img"><svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#ff0080"/></svg></div>
         <div class="y2k-icon-label">curious?</div>
       </div>
-      <div class="y2k-icon" onclick="window.location.href='imessage://mar@mar.art'">
-        <div class="y2k-icon-img">💬</div>
-        <div class="y2k-icon-label">hmu</div>
-      </div>
+
     </div>
 
     <div class="y2k-text-area" style="padding:0; overflow:hidden;">
@@ -594,6 +629,11 @@
 </div>
 
 <div class="site-label">mar.art</div>
+
+<div class="incognito-popup" id="incognitoPopup">
+  where u tryna go? 🤡
+  <button onclick="document.getElementById('incognitoPopup').style.display='none'">nowhere lol</button>
+</div>
 
 <div class="dvd-bubble" id="dvdBubble">i dare u</div>
 
@@ -1224,6 +1264,23 @@
       document.addEventListener('mousemove', onMove);
       document.addEventListener('mouseup', onUp);
     });
+  });
+
+  function showIncognitoPopup() {
+    document.getElementById('fileDropdown').style.display = 'none';
+    document.getElementById('incognitoPopup').style.display = 'block';
+  }
+
+  function toggleFileMenu() {
+    const dd = document.getElementById('fileDropdown');
+    dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+  }
+
+  document.addEventListener('click', e => {
+    const dd = document.getElementById('fileDropdown');
+    if (!e.target.closest('#fileMenu') && !e.target.closest('#fileDropdown')) {
+      dd.style.display = 'none';
+    }
   });
 
   // WINDOW CONTROLS
