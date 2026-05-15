@@ -587,7 +587,7 @@
     <div class="y2k-spin-hint">[ drag to move · scroll to spin ]</div>
   </div>
   <div class="y2k-statusbar" id="winStatusbar">
-    <div class="y2k-status-item">8 objects</div>
+    <div class="y2k-status-item">@mar</div>
     <div class="y2k-status-item">mar.art</div>
     <div class="y2k-status-item" id="spinStatus">0°</div>
   </div>
@@ -719,8 +719,13 @@
   let dvdBouncing = false;
   let dvdLastTime = null;
 
-  dvd.style.left = dvdX + 'px';
-  dvd.style.top = dvdY + 'px';
+  // Center dvd after render
+  requestAnimationFrame(() => {
+    dvdX = (window.innerWidth - dvd.offsetWidth) / 2;
+    dvdY = 75;
+    dvd.style.left = dvdX + 'px';
+    dvd.style.top = dvdY + 'px';
+  });
 
   window.addEventListener('resize', () => {
     if (!dvdBouncing) {
@@ -1148,15 +1153,21 @@
     if (e.touches.length < 2) lastTouchAngle = null;
   }, { passive: true });
 
-  // SCROLL TO SPIN
+  // SCROLL TO SPIN, CTRL+WHEEL TO SCALE
   win.addEventListener('wheel', e => {
     e.preventDefault();
-    currentRotation += e.deltaY * 0.25;
-    applyTransform();
+    if (e.ctrlKey) {
+      const delta = e.deltaY > 0 ? 0.95 : 1.05;
+      winScale = Math.min(2.0, Math.max(0.25, winScale * delta));
+      win.style.transform = `rotate(${currentRotation}deg) scale(${winScale})`;
+    } else {
+      currentRotation += e.deltaY * 0.25;
+      applyTransform();
+    }
   }, { passive: false });
 
   function applyTransform() {
-    win.style.transform = `rotate(${currentRotation}deg)`;
+    win.style.transform = `rotate(${currentRotation}deg) scale(${winScale})`;
     document.getElementById('spinStatus').textContent = Math.round(((currentRotation % 360) + 360) % 360) + '°';
   }
 
