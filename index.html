@@ -21,9 +21,6 @@
     height: 100vh;
   }
 
-  /* GRAIN — replaced by canvas static */
-  body::after { display: none; }
-
   /* STARFIELD */
   #starfield {
     position: fixed;
@@ -60,8 +57,6 @@
     position: relative;
     z-index: 1;
   }
-
-  .hero-name { display: none; }
 
   .marquee-hero {
     position: absolute;
@@ -195,7 +190,7 @@
     display: flex; align-items: center; justify-content: center;
   }
   .y2k-icon-label {
-    font-family: 'VT323', monospace; font-size: 12px;
+    font-family: 'VT323', monospace; font-size: 18px;
     color: #fff; text-align: center; line-height: 1.2;
   }
 
@@ -329,7 +324,7 @@
   .y2k-start {
     position: fixed;
     bottom: 25px; left: 25px;
-    font-family: 'VT323', monospace; font-size: 16px;
+    font-family: 'VT323', monospace; font-size: 18px;
     background: rgba(200,210,230,0.08);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
@@ -355,7 +350,7 @@
   .y2k-taskbar-clock {
     position: fixed;
     bottom: 25px; right: 25px;
-    font-family: 'VT323', monospace; font-size: 15px; color: #fff;
+    font-family: 'VT323', monospace; font-size: 18px; color: #fff;
     background: rgba(200,210,230,0.08);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
@@ -474,7 +469,7 @@
     left: 50%;
     transform: translateX(-50%);
     font-family: 'VT323', monospace;
-    font-size: 15px;
+    font-size: 18px;
     color: #ffffff;
     letter-spacing: 0.1em;
     z-index: 9100;
@@ -528,20 +523,16 @@
     <div class="y2k-menu" onclick="alert('i can\'t help u 🫣')">help</div>
   </div>
   <div class="y2k-body" id="winBody">
-    <div class="y2k-desktop-icons">
-      <div class="y2k-icon" onclick="window.open('https://mar.art','_blank')">
-        <div class="y2k-icon-img">🌐</div>
-        <div class="y2k-icon-label">www</div>
-      </div>
+    <div class="y2k-desktop-icons" style="grid-template-columns: repeat(3, 1fr);">
       <div class="y2k-icon" onclick="window.open('https://instagram.com/mar','_blank')">
-        <div class="y2k-icon-img">🔥</div>
+        <div class="y2k-icon-img">🤖</div>
         <div class="y2k-icon-label">insta</div>
       </div>
       <div class="y2k-icon" onclick="alert('username: @mar\nstatus: nfs 🫪')"
            onmouseenter="this.querySelector('.y2k-icon-img').textContent='😢'; this.querySelector('.y2k-icon-label').textContent='my bad'"
-           onmouseleave="this.querySelector('.y2k-icon-img').textContent='🫣'; this.querySelector('.y2k-icon-label').textContent='my @'">
+           onmouseleave="this.querySelector('.y2k-icon-img').textContent='🫣'; this.querySelector('.y2k-icon-label').textContent='psa'">
         <div class="y2k-icon-img">🫣</div>
-        <div class="y2k-icon-label">my @</div>
+        <div class="y2k-icon-label">psa</div>
       </div>
       <div class="y2k-icon" onclick="window.location.href='mailto:mar@mar.art'">
         <div class="y2k-icon-img">🤪</div>
@@ -571,10 +562,6 @@
         </div>
         <div class="y2k-icon-label">pspsps</div>
       </div>
-      <div class="y2k-icon" onclick="window.location.href='imessage://mar@mar.art'">
-        <div class="y2k-icon-img">💬</div>
-        <div class="y2k-icon-label">hmu</div>
-      </div>
       <div class="y2k-icon y2k-icon-artist" onclick="window.open('https://youtube.com/@brbmar','_blank')">
         <div class="y2k-icon-img"><svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#0000ff"/></svg></div>
         <div class="y2k-icon-label">artist</div>
@@ -583,7 +570,6 @@
         <div class="y2k-icon-img"><svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#ff0080"/></svg></div>
         <div class="y2k-icon-label">curious?</div>
       </div>
-
     </div>
 
     <div class="y2k-text-area" style="padding:0; overflow:hidden;">
@@ -1213,9 +1199,7 @@
   }
 
   // RESIZE — desktop only
-  const isMobile = () => window.innerWidth <= 600;
-  const BASE_W = 400;
-  const MAX_W = BASE_W * 1.5; // 150%
+  const MAX_W = 600;
 
   document.querySelectorAll('.y2k-resize').forEach(handle => {
     handle.addEventListener('mousedown', e => {
@@ -1305,8 +1289,8 @@
     const vw = window.innerWidth;
     const isMob = vw <= 600;
     if (isMob) {
-      win.style.width = '20vw';
-      win.style.left = '40vw';
+      win.style.width = '40vw';
+      win.style.left = '30vw';
     } else {
       win.style.width = '';
       const ww = win.offsetWidth;
@@ -1336,8 +1320,6 @@
     applyTransform();
     centerWindow();
   }
-
-  function resetWindow() { openWindow(); }
 
   // Load minimized at top center
   window.addEventListener('load', () => {
