@@ -1024,16 +1024,6 @@
     });
   }
 
-  // mar.art label = randomize on mobile tap
-  const siteLabelEl = document.querySelector('.site-label');
-  if (siteLabelEl) {
-    siteLabelEl.style.pointerEvents = 'all';
-    siteLabelEl.style.cursor = 'pointer';
-    siteLabelEl.addEventListener('click', () => {
-      if (window.innerWidth <= 768) randomize();
-    });
-  }
-
   // KEYBOARD SHORTCUTS
   document.addEventListener('keydown', e => {
     // Don't fire when typing in input
