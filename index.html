@@ -1061,6 +1061,84 @@
     });
   }
 
+  // KEYBOARD SHORTCUTS
+  document.addEventListener('keydown', e => {
+    // Don't fire when typing in input
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+    if (e.key === 's' || e.key === 'S') {
+      openWindow();
+    }
+
+    if (e.key === 'x' || e.key === 'X') {
+      closeWindow();
+    }
+
+    if (e.key === 'r' || e.key === 'R') {
+      randomize();
+    }
+  });
+
+  function randomize() {
+    // Randomize window position + rotation
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const ww = win.offsetWidth, wh = win.offsetHeight;
+    win.style.left = Math.random() * (vw - ww) + 'px';
+    win.style.top = Math.random() * (vh - wh) + 'px';
+    currentRotation = (Math.random() - 0.5) * 720;
+    winScale = 0.5 + Math.random() * 1.5;
+    applyTransform();
+
+    // Randomize logo position
+    const logo = document.querySelector('.mar-logo-fixed');
+    if (logo) {
+      logo.style.left = Math.random() * (vw - 60) + 'px';
+      logo.style.top = Math.random() * (vh - 60) + 'px';
+      logo.style.right = 'auto';
+    }
+
+    // Randomize devil position
+    const devil = document.querySelector('.devil');
+    if (devil) {
+      devil.style.right = 'auto';
+      devil.style.left = Math.random() * (vw - 50) + 'px';
+      devil.style.top = Math.random() * (vh - 50) + 'px';
+    }
+
+    // Randomize start button
+    const startBtn = document.getElementById('startBtn');
+    if (startBtn) {
+      startBtn.style.left = Math.random() * (vw - 100) + 'px';
+      startBtn.style.top = Math.random() * (vh - 40) + 'px';
+      startBtn.style.bottom = 'auto';
+    }
+
+    // Randomize clock
+    const clock = document.getElementById('clock');
+    if (clock) {
+      clock.style.right = 'auto';
+      clock.style.bottom = 'auto';
+      clock.style.left = Math.random() * (vw - 80) + 'px';
+      clock.style.top = Math.random() * (vh - 40) + 'px';
+    }
+
+    // Randomize mar.art label
+    const siteLabel = document.querySelector('.site-label');
+    if (siteLabel) {
+      siteLabel.style.left = Math.random() * (vw - 120) + 'px';
+      siteLabel.style.bottom = 'auto';
+      siteLabel.style.top = Math.random() * (vh - 30) + 'px';
+      siteLabel.style.transform = 'none';
+    }
+
+    // Randomize marquee vertical position
+    const marquee = document.querySelector('.marquee-hero');
+    if (marquee) {
+      marquee.style.top = (20 + Math.random() * 60) + '%';
+      marquee.style.transform = `translateY(-${40 + Math.random() * 30}%) rotate(${(Math.random()-0.5)*20}deg)`;
+    }
+  }
+
   // TERMINAL INPUT
   const responses = {
     'hello': 'hello there. 👋',
