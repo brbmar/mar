@@ -238,11 +238,6 @@
     padding: 1px 6px; flex: 1; text-align: center;
   }
 
-  .y2k-spin-hint {
-    font-family: 'VT323', monospace; font-size: 18px; color: rgba(255,255,255,0.6);
-    text-align: center; margin-top: 4px;
-  }
-
   .incognito-popup {
     position: fixed;
     top: 50%; left: 50%;
@@ -358,22 +353,8 @@
     z-index: 9100;
     cursor: default;
   }
-
-  .y2k-taskbar-item {
-    position: fixed;
-    top: 25px; right: 25px;
-    font-family: 'VT323', monospace; font-size: 14px;
-    background: rgba(200,210,230,0.08);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.4);
-    padding: 4px 12px; cursor: pointer;
-    z-index: 9100;
-  }
   @media (max-width: 600px) {
     .cursor { display: none; }
-    .y2k-taskbar-item { font-size: 18px; letter-spacing: 0.1em; }
     .y2k-window {
       width: 75vw !important;
       max-height: calc(100vh - 80px);
@@ -592,7 +573,6 @@
       <span class="y2k-marquee-inner">mar.art · digital artist · internet-raised · switzerland · no, u can't get my user · mar@mar.art</span>
     </div>
 
-
   </div>
   <div class="y2k-statusbar" id="winStatusbar">
     <div class="y2k-status-item">@mar</div>
@@ -689,7 +669,7 @@
       const alpha = Math.min(1, Math.max(0, (s.radius - 0.2) * 3));
 
       // smooth gradient line from a point behind to tip
-      const trailLen = 0.035;
+      const trailLen = 0.05;
       const trailR = Math.max(0, s.radius - trailLen) * maxR;
       const x0 = cx() + Math.cos(s.angle) * trailR;
       const y0 = cy() + Math.sin(s.angle) * trailR;
@@ -1412,7 +1392,6 @@
     applyTransform();
     centerWindow();
   }
-
 
   // PINCH TO SCALE
   let lastPinchDist = null;
