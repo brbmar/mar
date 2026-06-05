@@ -544,27 +544,7 @@
         <div class="y2k-icon-label">say hi!</div>
       </div>
       <div class="y2k-icon" onclick="alert('nothing to see here')">
-        <div class="y2k-icon-img">
-          <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="15,48 22,20 38,46" fill="#111"/>
-            <polygon points="85,48 78,20 62,46" fill="#111"/>
-            <polygon points="20,44 25,26 35,44" fill="#333"/>
-            <polygon points="80,44 75,26 65,44" fill="#333"/>
-            <ellipse cx="50" cy="62" rx="38" ry="34" fill="#111"/>
-            <ellipse cx="34" cy="58" rx="9" ry="11" fill="#ffff00"/>
-            <ellipse cx="66" cy="58" rx="9" ry="11" fill="#ffff00"/>
-            <ellipse cx="34" cy="58" rx="4" ry="10" fill="#000"/>
-            <ellipse cx="66" cy="58" rx="4" ry="10" fill="#000"/>
-            <circle cx="31" cy="54" r="2" fill="rgba(255,255,255,0.5)"/>
-            <circle cx="63" cy="54" r="2" fill="rgba(255,255,255,0.5)"/>
-            <polygon points="50,72 47,76 53,76" fill="#555"/>
-            <path d="M44,76 Q50,82 56,76" fill="none" stroke="#555" stroke-width="1.5"/>
-            <line x1="8" y1="70" x2="40" y2="72" stroke="#444" stroke-width="1"/>
-            <line x1="8" y1="76" x2="40" y2="75" stroke="#444" stroke-width="1"/>
-            <line x1="60" y1="72" x2="92" y2="70" stroke="#444" stroke-width="1"/>
-            <line x1="60" y1="75" x2="92" y2="76" stroke="#444" stroke-width="1"/>
-          </svg>
-        </div>
+        <div class="y2k-icon-img">🐱</div>
         <div class="y2k-icon-label">pspsps</div>
       </div>
       <div class="y2k-icon y2k-icon-artist" onclick="window.open('https://youtube.com/@brbmar','_blank')">
@@ -686,7 +666,7 @@
     const dt = Math.min((timestamp - starLastTime) / (1000/60), 2);
     starLastTime = timestamp;
 
-    ctx.fillStyle = 'rgba(0, 0, 51, 0.18)';
+    ctx.fillStyle = window._starFade || 'rgba(0, 0, 51, 0.18)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const W = canvas.width;
@@ -1086,11 +1066,13 @@
   }
 
   function randomize() {
-    // Random colors
-    const bg = randColor();
+    // Pick a random hue, keep very dark like the navy
+    const h = Math.random() * 360 | 0;
+    const newBg = `hsl(${h}, 80%, 10%)`;
+    document.body.style.background = newBg;
+    window._starFade = `hsla(${h}, 80%, 10%, 0.18)`;
     const textColor = randColor();
     const accentColor = randColor();
-    document.body.style.background = bg;
 
     // marquee text color
     document.querySelectorAll('.marquee-hero-inner span').forEach(el => el.style.color = accentColor);
