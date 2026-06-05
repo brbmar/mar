@@ -1025,20 +1025,36 @@
   let lastShake = 0;
   let lastX = 0, lastY = 0, lastZ = 0;
 
-  window.addEventListener('devicemotion', e => {
-    const acc = e.accelerationIncludingGravity;
-    if (!acc) return;
-    const dx = Math.abs(acc.x - lastX);
-    const dy = Math.abs(acc.y - lastY);
-    const dz = Math.abs(acc.z - lastZ);
-    lastX = acc.x; lastY = acc.y; lastZ = acc.z;
-    const shake = dx + dy + dz;
-    const now = Date.now();
-    if (shake > 40 && now - lastShake > 1000) {
-      lastShake = now;
-      randomize();
-    }
-  });
+  function startShakeListener() {
+    window.addEventListener('devicemotion', e => {
+      const acc = e.accelerationIncludingGravity;
+      if (!acc) return;
+      const dx = Math.abs(acc.x - lastX);
+      const dy = Math.abs(acc.y - lastY);
+      const dz = Math.abs(acc.z - lastZ);
+      lastX = acc.x; lastY = acc.y; lastZ = acc.z;
+      const shake = dx + dy + dz;
+      const now = Date.now();
+      if (shake > 40 && now - lastShake > 1000) {
+        lastShake = now;
+        randomize();
+      }
+    });
+  }
+
+  // iOS 13+ needs permission — request on first user touch
+  if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+    let permissionAsked = false;
+    document.addEventListener('touchstart', () => {
+      if (permissionAsked) return;
+      permissionAsked = true;
+      DeviceMotionEvent.requestPermission().then(state => {
+        if (state === 'granted') startShakeListener();
+      }).catch(() => {});
+    }, { once: false });
+  } else {
+    startShakeListener();
+  }
 
   // KEYBOARD SHORTCUTS
   document.addEventListener('keydown', e => {
