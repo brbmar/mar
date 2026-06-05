@@ -77,12 +77,11 @@
   }
 
   .marquee-hero-inner span {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-weight: 300;
+    font-family: 'VT323', monospace;
     font-size: 75vh;
     color: #ffff00;
-    letter-spacing: -0.02em;
-    line-height: 0.78;
+    letter-spacing: 0.02em;
+    line-height: 0.85;
     padding-right: 0.4em;
     user-select: none;
   }
@@ -380,11 +379,7 @@
       max-height: calc(100vh - 80px);
       overflow-y: auto;
     }
-    .y2k-window.minimized-bar {
-      width: 40vw !important;
-      left: 30vw !important;
-    }
-    .y2k-body {
+      .y2k-body {
       padding: 8px;
     }
     .y2k-desktop-icons {
@@ -463,6 +458,17 @@
     50%       { box-shadow: 0 0 28px 12px rgba(255,0,128,0.2); }
   }
 
+  @keyframes explode {
+    0%   { transform: scale(1); opacity: 1; }
+    40%  { transform: scale(2.5); opacity: 0.8; }
+    100% { transform: scale(0.1); opacity: 0; }
+  }
+
+  .dvd-bubble.exploding {
+    animation: explode 0.4s ease-out forwards !important;
+    pointer-events: none;
+  }
+
   .site-label {
     position: fixed;
     bottom: 25px;
@@ -505,10 +511,9 @@
   <div class="y2k-resize y2k-resize-ne" data-dir="ne"></div>
   <div class="y2k-resize y2k-resize-sw" data-dir="sw"></div>
   <div class="y2k-resize y2k-resize-se" data-dir="se"></div>
-  <div class="y2k-titlebar" id="titlebar">
-    <div class="y2k-titlebar-text">mar</div>
+  <div class="y2k-titlebar" id="titlebar" style="display:none;">
+    <div class="y2k-titlebar-text">mar.exe</div>
     <div class="y2k-btns">
-      <div class="y2k-btn" onclick="minimizeWindow()">_</div>
       <div class="y2k-btn" onclick="closeWindow()">✕</div>
     </div>
   </div>
@@ -623,7 +628,7 @@
   <button onclick="document.getElementById('incognitoPopup').style.display='none'">nowhere lol</button>
 </div>
 
-<div class="dvd-bubble" id="dvdBubble">i dare u</div>
+<div class="dvd-bubble" id="dvdBubble">catch me!</div>
 
 <!-- FLOATING UI -->
 <div class="mar-logo-fixed">
@@ -633,7 +638,7 @@
 </div>
 
 <span class="devil">😈</span>
-<button class="y2k-start" id="startBtn" onclick="openWindow()">grüezi</button>
+<button class="y2k-start" id="startBtn" onclick="openWindow()">start</button>
 
 <div class="y2k-taskbar-clock" id="clock"
      onmouseenter="this.textContent='13:37'"
@@ -743,15 +748,16 @@
   let dvdAngle = Math.atan2(1.31, 1.69);
   let dvdVx = Math.cos(dvdAngle) * dvdSpeed;
   let dvdVy = Math.sin(dvdAngle) * dvdSpeed;
-  let dvdBouncing = false;
+  let dvdBouncing = true; // bounce from start
   let dvdLastTime = null;
 
-  // Center dvd after render
+  // Center and start bouncing on load
   requestAnimationFrame(() => {
     dvdX = (window.innerWidth - dvd.offsetWidth) / 2;
-    dvdY = 75;
+    dvdY = (window.innerHeight - dvd.offsetHeight) / 2;
     dvd.style.left = dvdX + 'px';
     dvd.style.top = dvdY + 'px';
+    requestAnimationFrame(dvdLoop);
   });
 
   window.addEventListener('resize', () => {
@@ -790,15 +796,9 @@
   }
 
   dvd.addEventListener('click', () => {
-    dvd.textContent = 'watch me!';
-    if (!dvdBouncing) {
-      dvdBouncing = true;
-      dvdLastTime = null;
-      const angle = Math.random() * Math.PI * 2;
-      dvdVx = Math.cos(angle) * dvdSpeed;
-      dvdVy = Math.sin(angle) * dvdSpeed;
-      requestAnimationFrame(dvdLoop);
-    }
+    dvdBouncing = false;
+    dvd.classList.add('exploding');
+    setTimeout(() => dvd.remove(), 400);
   });
 
   // Pre-click drag for bored pill
@@ -1269,35 +1269,7 @@
   });
 
   // WINDOW CONTROLS
-  let minimized = true; // start minimized
   let winScale = 1;
-
-  function setMinimized(state) {
-    minimized = state;
-    document.getElementById('winMenubar').style.display = minimized ? 'none' : '';
-    document.getElementById('winBody').style.display = minimized ? 'none' : '';
-    document.getElementById('winStatusbar').style.display = minimized ? 'none' : '';
-    win.classList.toggle('minimized-bar', minimized);
-  }
-
-  function minimizeWindow() {
-    setMinimized(!minimized);
-    setTimeout(minimized ? centerWindowTop : centerWindow, 10);
-  }
-
-  function centerWindowTop() {
-    const vw = window.innerWidth;
-    const isMob = vw <= 600;
-    if (isMob) {
-      win.style.width = '40vw';
-      win.style.left = '30vw';
-    } else {
-      win.style.width = '';
-      const ww = win.offsetWidth;
-      win.style.left = Math.max(8, (vw - ww) / 2) + 'px';
-    }
-    win.style.top = '25px';
-  }
 
   function centerWindow() {
     const vw = window.innerWidth;
@@ -1315,21 +1287,15 @@
     const btn = document.getElementById('startBtn');
     btn.classList.add('clicked');
     win.style.display = '';
-    setMinimized(false);
+    document.getElementById('titlebar').style.display = 'flex';
+    document.getElementById('winMenubar').style.display = '';
+    document.getElementById('winBody').style.display = '';
+    document.getElementById('winStatusbar').style.display = '';
     currentRotation = 0;
     applyTransform();
     centerWindow();
   }
 
-  // Load minimized at top center
-  window.addEventListener('load', () => {
-    win.style.display = '';
-    setMinimized(true);
-    setTimeout(centerWindowTop, 10);
-  });
-  window.addEventListener('resize', () => {
-    if (minimized) centerWindowTop(); else centerWindow();
-  });
 
   // PINCH TO SCALE
   let lastPinchDist = null;
