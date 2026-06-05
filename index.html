@@ -597,7 +597,7 @@
   </svg>
 </div>
 
-<span class="devil">🎲</span>
+<span class="devil">🔥</span>
 <button class="y2k-start" id="startBtn" onclick="openWindow()">start</button>
 
 <div class="y2k-taskbar-clock" id="clock"
@@ -1021,6 +1021,25 @@
     });
   }
 
+  // SHAKE TO RANDOMIZE (mobile)
+  let lastShake = 0;
+  let lastX = 0, lastY = 0, lastZ = 0;
+
+  window.addEventListener('devicemotion', e => {
+    const acc = e.accelerationIncludingGravity;
+    if (!acc) return;
+    const dx = Math.abs(acc.x - lastX);
+    const dy = Math.abs(acc.y - lastY);
+    const dz = Math.abs(acc.z - lastZ);
+    lastX = acc.x; lastY = acc.y; lastZ = acc.z;
+    const shake = dx + dy + dz;
+    const now = Date.now();
+    if (shake > 40 && now - lastShake > 1000) {
+      lastShake = now;
+      randomize();
+    }
+  });
+
   // KEYBOARD SHORTCUTS
   document.addEventListener('keydown', e => {
     // Don't fire when typing in input
@@ -1378,11 +1397,17 @@
     win.style.top = Math.max(8, (vh - wh) / 2) + 'px';
   }
 
-  function closeWindow() { win.style.display = 'none'; }
+  function closeWindow() {
+    win.style.display = 'none';
+    const btn = document.getElementById('startBtn');
+    if (btn) { btn.textContent = 'start'; btn.onclick = openWindow; }
+  }
 
   function openWindow() {
     const btn = document.getElementById('startBtn');
     btn.classList.add('clicked');
+    btn.textContent = 'close';
+    btn.onclick = closeWindowFromBtn;
     win.style.display = '';
     document.getElementById('titlebar').style.display = 'flex';
     document.getElementById('winMenubar').style.display = '';
@@ -1391,6 +1416,13 @@
     currentRotation = 0;
     applyTransform();
     centerWindow();
+  }
+
+  function closeWindowFromBtn() {
+    const btn = document.getElementById('startBtn');
+    btn.textContent = 'start';
+    btn.onclick = openWindow;
+    closeWindow();
   }
 
   // PINCH TO SCALE
