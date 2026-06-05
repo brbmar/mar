@@ -1079,8 +1079,69 @@
     }
   });
 
+  const EMOJI_POOL = ['🔥','👾','💀','🎃','🤖','🌈','🦄','💥','🎯','🍄','🐙','👻','🦊','🐸','🌀','⚡','🎪','🪩','🫧','🧨','🤡','💫','🌸','🎭','🦋','🍕','🎸','🌙','🪐','🎲','🦑','🐍','🌵','🎠','🧿','🏴‍☠️','🎡','🪄','🦈','🐉','🌊','🎋','🧸','🪅','🎑','🦚','🐊','🌺','🎆','🦀','🍀','🌻','🎇','🐬','🦁','🌴','🎻','🦩','🐋','🌋','🎺','🦜','🐘','🌾','🎷','🦔','🐝','🌿','🎹','🦋','🐢','🌏','🎮','🦠','🐠','🌍','🎰','🦭','🐧','🌌','🎳','🦥','🦔','🌠','🎯','🧬','🧲','🌡','🎴','🧫','💎','🌈','🎃','🧪','🪬','🌑','🔮','🧩','🪞','🌒','🗿'];
+
+  function randColor() {
+    return `hsl(${Math.random()*360|0}, ${60+Math.random()*40|0}%, ${40+Math.random()*40|0}%)`;
+  }
+
   function randomize() {
-    // Randomize window position + rotation
+    // Random colors
+    const bg = randColor();
+    const textColor = randColor();
+    const accentColor = randColor();
+    document.body.style.background = bg;
+
+    // marquee text color
+    document.querySelectorAll('.marquee-hero-inner span').forEach(el => el.style.color = accentColor);
+
+    // site label
+    const siteLabel = document.querySelector('.site-label');
+    if (siteLabel) siteLabel.style.color = textColor;
+
+    // start button
+    const startBtn = document.getElementById('startBtn');
+    if (startBtn) startBtn.style.color = textColor;
+
+    // clock
+    const clock = document.getElementById('clock');
+    if (clock) clock.style.color = textColor;
+
+    // logo fill
+    const logoSvg = document.querySelector('.mar-logo-fixed svg');
+    if (logoSvg) logoSvg.style.fill = accentColor;
+
+    // titlebar
+    const titlebar = document.querySelector('.y2k-titlebar');
+    if (titlebar) titlebar.style.background = randColor();
+
+    // window background
+    win.style.background = `rgba(${Math.random()*50|0},${Math.random()*50|0},${Math.random()*50|0},0.25)`;
+
+    // dvd bubble
+    const dvdEl = document.getElementById('dvdBubble');
+    if (dvdEl) {
+      dvdEl.style.background = randColor();
+      dvdEl.style.boxShadow = `0 0 12px 4px ${randColor()}`;
+    }
+
+    // bored bubble (pink)
+    const boredEl = document.getElementById('boredBubble');
+    if (boredEl) boredEl.style.background = randColor();
+
+    // Randomize all emojis in icons (both text emoji and label)
+    document.querySelectorAll('.y2k-icon').forEach(icon => {
+      const img = icon.querySelector('.y2k-icon-img');
+      if (img && !img.querySelector('svg')) {
+        img.textContent = EMOJI_POOL[Math.random() * EMOJI_POOL.length | 0];
+      }
+    });
+
+    // Randomize devil
+    const devil = document.querySelector('.devil');
+    if (devil) devil.textContent = EMOJI_POOL[Math.random() * EMOJI_POOL.length | 0];
+
+    // Window position + rotation
     const vw = window.innerWidth, vh = window.innerHeight;
     const ww = win.offsetWidth, wh = win.offsetHeight;
     win.style.left = Math.random() * (vw - ww) + 'px';
@@ -1089,7 +1150,7 @@
     winScale = 0.5 + Math.random() * 1.5;
     applyTransform();
 
-    // Randomize logo position
+    // Logo position
     const logo = document.querySelector('.mar-logo-fixed');
     if (logo) {
       logo.style.left = Math.random() * (vw - 60) + 'px';
@@ -1097,24 +1158,21 @@
       logo.style.right = 'auto';
     }
 
-    // Randomize devil position
-    const devil = document.querySelector('.devil');
+    // Devil position
     if (devil) {
       devil.style.right = 'auto';
       devil.style.left = Math.random() * (vw - 50) + 'px';
       devil.style.top = Math.random() * (vh - 50) + 'px';
     }
 
-    // Randomize start button
-    const startBtn = document.getElementById('startBtn');
+    // Start button position
     if (startBtn) {
       startBtn.style.left = Math.random() * (vw - 100) + 'px';
       startBtn.style.top = Math.random() * (vh - 40) + 'px';
       startBtn.style.bottom = 'auto';
     }
 
-    // Randomize clock
-    const clock = document.getElementById('clock');
+    // Clock position
     if (clock) {
       clock.style.right = 'auto';
       clock.style.bottom = 'auto';
@@ -1122,8 +1180,7 @@
       clock.style.top = Math.random() * (vh - 40) + 'px';
     }
 
-    // Randomize mar.art label
-    const siteLabel = document.querySelector('.site-label');
+    // mar.art label position
     if (siteLabel) {
       siteLabel.style.left = Math.random() * (vw - 120) + 'px';
       siteLabel.style.bottom = 'auto';
@@ -1131,7 +1188,7 @@
       siteLabel.style.transform = 'none';
     }
 
-    // Randomize marquee vertical position
+    // Marquee position + tilt
     const marquee = document.querySelector('.marquee-hero');
     if (marquee) {
       marquee.style.top = (20 + Math.random() * 60) + '%';
