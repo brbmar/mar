@@ -30,9 +30,10 @@
   }
   .logo {
     position: fixed;
-    top: 50px;
-    right: 50px;
-    width: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
     height: auto;
     z-index: 10;
     display: block;
@@ -43,10 +44,6 @@
   }
   @media (max-width: 640px) {
     .logo {
-      top: 30px;
-      right: auto;
-      left: 50%;
-      transform: translateX(-50%);
       width: 100px;
     }
   }
@@ -68,5 +65,7 @@
       <path class="st0" d="M837.66,276.51l1.26,96.97.25,15.11v1.01h-43.83v-181.61h48.86l65.49,113.1-1.26-96.97-.25-15.11v-1.01h43.83v181.61h-48.87l-65.49-113.1Z"/>
     </svg>
   </a>
+
+
 </body>
 </html>
