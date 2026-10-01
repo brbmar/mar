@@ -194,7 +194,7 @@ const rnd=(a,b)=>a+Math.random()*(b-a);
 const W=()=>innerWidth, H=()=>innerHeight-ticker.offsetHeight;
 
 /* ---------- ticker ---------- */
-const tips=['drag and throw anything','scroll on a letter to spin it','double-click to pop','hold on empty space, then let go','space flips gravity','esc puts it all back','some of this is hiding something','tap the counter for a hint'];
+const tips=['drag and throw anything','scroll on a letter to spin it','double-tap to pop','hold on empty space, then let go','space flips gravity','esc puts it all back','some of this is hiding something','tap the counter for a hint'];
 const tickText=tips.map(t=>`<span>${t}</span><span>✶</span>`).join('');
 $('#ticker .track').innerHTML=tickText+tickText;
 
@@ -258,15 +258,21 @@ function attach(b){
   el.addEventListener('pointerdown',e=>{
     if(b.popped)return; e.stopPropagation(); el.setPointerCapture(e.pointerId);
     b.drag=true; b.free=true; b.returning=false; b.wait=0; b.ox=e.clientX-b.x; b.oy=e.clientY-b.y;
-    b.hist=[{x:e.clientX,y:e.clientY,t:performance.now()}]; el.style.zIndex=++z; el.classList.add('held'); activity();
+    b.hist=[{x:e.clientX,y:e.clientY,t:performance.now()}]; b.down={x:e.clientX,y:e.clientY,t:performance.now()}; el.style.zIndex=++z; el.classList.add('held'); activity();
   });
   el.addEventListener('pointermove',e=>{
     if(!b.drag)return; const nx=e.clientX-b.ox, ny=e.clientY-b.oy;
     b.a+=(nx-b.x)*.12; b.x=nx; b.y=ny;
     b.hist.push({x:e.clientX,y:e.clientY,t:performance.now()}); if(b.hist.length>6)b.hist.shift();
   });
-  const end=()=>{
+  const end=e=>{
     if(!b.drag)return; b.drag=false; el.classList.remove('held');
+    // double-tap detection (works on touch + mouse)
+    const tnow=performance.now(), d=b.down;
+    if(d && e && Math.hypot(e.clientX-d.x,e.clientY-d.y)<14 && tnow-d.t<300){
+      if(b.lastTap && tnow-b.lastTap<380){ b.lastTap=0; b.vx=b.vy=b.va=0; pop(b); return; }
+      b.lastTap=tnow;
+    } else b.lastTap=0;
     const h=b.hist, p0=h[0], p1=h[h.length-1], now=performance.now();
     if(now-p1.t>90){b.vx=b.vy=0;} else {const dt=Math.max(p1.t-p0.t,8); b.vx=(p1.x-p0.x)/dt*16; b.vy=(p1.y-p0.y)/dt*16;}
     const sp=Math.hypot(b.vx,b.vy); if(sp>60){b.vx*=60/sp;b.vy*=60/sp;}
@@ -275,7 +281,7 @@ function attach(b){
   };
   el.addEventListener('pointerup',end); el.addEventListener('pointercancel',end);
   el.addEventListener('wheel',e=>{e.preventDefault(); b.free=true; b.returning=false; b.wait=0; b.va=0; b.a+=e.deltaY*.35; activity();},{passive:false});
-  el.addEventListener('dblclick',()=>pop(b));
+  el.addEventListener('dblclick',e=>e.preventDefault());
   el.addEventListener('keydown',e=>{
     const k=e.key; let used=true; b.free=true; b.returning=false;
     if(k==='ArrowLeft')b.x-=24; else if(k==='ArrowRight')b.x+=24; else if(k==='ArrowUp')b.y-=24; else if(k==='ArrowDown')b.y+=24;
