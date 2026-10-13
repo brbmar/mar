@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/pls",
+      "destination": "https://music.apple.com/ch/album/pl%24/1861913846",
+      "permanent": false
+    }
+  ]
+}
