@@ -20,14 +20,6 @@
     background: var(--bg) url("images/background.jpg") center / cover no-repeat;
     transition: background-color 0.3s ease;
   }
-  .bg-video {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    pointer-events: none;
-  }
   .logo {
     position: fixed;
     z-index: 1;
@@ -47,7 +39,6 @@
 </style>
 </head>
 <body>
-  <video class="bg-video" src="videos/video.mp4" autoplay muted loop playsinline onerror="this.remove()"></video>
   <a class="logo" href="https://instagram.com/mar" target="_blank" rel="noopener noreferrer">
     <svg viewBox="0 0 780.63 363.6" xmlns="http://www.w3.org/2000/svg" aria-label="MAR">
       <path d="M203.64,275.16c10.37-48.59,27.84-131.03,38.76-179.62h-4.37c-25.66,89.54-70.43,243.49-76.43,268.06h-61.69c7.64-51.32,27.84-199.82,37.12-269.7h-4.37c-8.74,43.13-22.38,115.74-35.49,178.52l-19.11,91.17H0L76.98,0h115.74c-3.28,33.85-12.56,116.29-19.11,159.96h2.73c15.83-51.32,25.11-85.71,48.59-159.96h120.11l-76.98,363.6h-82.98l18.56-88.44Z"/>
