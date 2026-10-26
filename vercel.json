@@ -4,6 +4,11 @@
       "source": "/pls",
       "destination": "https://music.apple.com/ch/album/pl%24/1861913846",
       "permanent": false
+    },
+    {
+      "source": "/plss",
+      "destination": "https://open.spotify.com/track/2TViUx8KDT1nKyoThTf53o",
+      "permanent": false
     }
   ]
 }
